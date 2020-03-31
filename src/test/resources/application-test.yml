@@ -1,0 +1,16 @@
+ovh:
+  files:
+    mapping: ${OVH_MAPPING:/files}
+  region: ${OVH_REGION:}
+  authentication:
+    user:
+      name: ${USER:}
+      id: ${USER_ID:}
+    password: ${PASSWORD:}
+    token: ${TOKEN:}
+  domain:
+    id: ${DOMAIN_ID:default}
+    name: ${DOMAIN_ID:Default}
+  project:
+    id: ${PROJECT_ID}
+  endpoint: ${OVH_ENDPOINT:https://auth.cloud.ovh.net/v3}
