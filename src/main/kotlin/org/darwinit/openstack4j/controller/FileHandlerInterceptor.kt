@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-open class FileHandlerInterceptor: HandlerInterceptor {
-    @Autowired
-    private lateinit var interceptorService: IInterceptorService
+open class FileHandlerInterceptor(private val interceptorService: IInterceptorService?): HandlerInterceptor {
 
     @Autowired
     private lateinit var ovhConfiguration: OVHConfiguration
@@ -21,11 +19,14 @@ open class FileHandlerInterceptor: HandlerInterceptor {
                             response: HttpServletResponse?,
                             handler: Any?): Boolean {
 
-        return if (request?.requestURI==ovhConfiguration.files.downloadMapping){
-            interceptorService.handleDownload(request, response, handler)
-        } else  if (request?.requestURI==ovhConfiguration.files.uploadMapping) {
-            interceptorService.handleUpload(request, response, handler)
+        if(interceptorService!=null) {
+            if (request?.requestURI==ovhConfiguration.files.downloadMapping){
+                return interceptorService.handleDownload(request, response, handler)
+            } else  if (request?.requestURI==ovhConfiguration.files.uploadMapping) {
+                return interceptorService.handleUpload(request, response, handler)
+            }
         }
-        else true
+
+        return true
     }
 }

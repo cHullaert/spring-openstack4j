@@ -3,6 +3,7 @@ package org.darwinit.openstack4j
 import org.darwinit.openstack4j.services.DirectoryLocation
 import org.darwinit.openstack4j.services.IStorageService
 import org.darwinit.openstack4j.services.ObjectLocation
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -12,6 +13,7 @@ import java.io.ByteArrayInputStream
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Disabled
 class ApplicationTest {
 
     @Autowired

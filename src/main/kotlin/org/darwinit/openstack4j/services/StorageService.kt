@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse
 
 
 @Service
-class StorageService: IStorageService {
+open class StorageService: IStorageService {
 
     @Autowired
     private lateinit var ovhConfiguration: OVHConfiguration
@@ -26,11 +26,8 @@ class StorageService: IStorageService {
         val endpoint = OSFactory.builderV3()
             .endpoint(ovhConfiguration.endpoint)
 
-        var domainIdentifier: Identifier? = null
-        var projectIdentifier: Identifier? = null
-
-        domainIdentifier = createDomainIdentifier()
-        projectIdentifier = createProjectIdentifier()
+        val domainIdentifier: Identifier? = createDomainIdentifier()
+        val projectIdentifier: Identifier? = createProjectIdentifier()
 
         val local=when {
             ovhConfiguration.authentication.token!=null -> {
@@ -71,6 +68,12 @@ class StorageService: IStorageService {
         }
         println("container count: "+account.containerCount)
 
+    }
+
+    override fun containerExists(name: String): Boolean {
+        return this.client.objectStorage().containers().list().firstOrNull {
+            it.name==name
+        } != null
     }
 
     override fun createContainer(name: String): Boolean {

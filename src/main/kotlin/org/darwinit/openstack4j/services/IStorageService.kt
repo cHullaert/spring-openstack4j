@@ -11,6 +11,7 @@ data class ObjectLocation(val name: String, val path: String, val container: Str
 
 interface IStorageService {
     fun dummy()
+    fun containerExists(name: String): Boolean
     fun createContainer(name: String): Boolean
     fun list(location: DirectoryLocation): List<StorageObject>
     fun createObject(objectLocation: ObjectLocation, stream: InputStream): String
